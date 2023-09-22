@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import Head from 'next/head'
 
 import { Container, Content } from './styles';
+import { Sidebar } from '@/components/Sidebar';
 
 interface DefaultLayoutProps {
   children: ReactNode;
@@ -15,9 +16,9 @@ export const DefaultLayout = ({ children, title }: DefaultLayoutProps) => {
         <title>{`${title} | BookWise`}</title>
         <link rel="shortcut icon" href="/favicon.svg" type="image/svg" />
       </Head>
-      <aside>
-        Sidebar
-      </aside>
+     
+      <Sidebar />
+
       <Content>
         {children}
       </Content>
