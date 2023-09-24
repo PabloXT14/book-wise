@@ -4,6 +4,7 @@ import { NextPageWithLayout } from './_app'
 import { DefaultLayout } from '@/layouts/DefaultLayout'
 import { HomeContainer } from '@/styles/pages/home'
 import { LatestRatings } from '@/components/LatestRatings'
+import { PopularBooks } from '@/components/PopularBooks'
 
 const HomePage: NextPageWithLayout = () => {
   const { data } = useSession()
@@ -11,9 +12,7 @@ const HomePage: NextPageWithLayout = () => {
   return (
     <HomeContainer>
       <LatestRatings />
-      <aside>
-        aside
-      </aside>
+      <PopularBooks />
     </HomeContainer>
   )
 }
