@@ -11,10 +11,25 @@ export const Container = styled('div', {
   borderRadius: 8,
   cursor: 'pointer',
   transition: '0.2s',
+  position: 'relative',
+  overflow: 'hidden',
 
   '&:hover': {
     borderColor: '$gray600',
   }
+})
+
+export const ReadBadge = styled('span', {
+  position: 'absolute',
+  display: 'block',
+  background: '#0A313C',
+  top: 0,
+  right: 0,
+  color: '$green100',
+  fontWeight: '$bold',
+  fontSize: '$xs',
+  padding: '$1 $3',
+  borderRadius: '0px 4px 0px 4px',
 })
 
 export const BookImage = styled(Image, {
