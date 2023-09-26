@@ -9,7 +9,7 @@ import { DefaultLayout } from '@/layouts/DefaultLayout'
 import { PageTitle } from '@/components/ui/PageTitle'
 import { Input } from '@/components/ui/Form/Input'
 import { Tag } from '@/components/ui/Tag'
-import { BookCard } from '@/components/BookCard'
+import { BookCard, BookWithAvgRating } from '@/components/BookCard'
 import { api } from '@/lib/axios'
 
 const ExplorePage: NextPageWithLayout = () => {
@@ -23,6 +23,23 @@ const ExplorePage: NextPageWithLayout = () => {
 
       return response.data.categories ?? []
     }
+  })
+
+  const { data: books } = useQuery<BookWithAvgRating[]>({
+    queryKey: ['books', selectedCategory],
+    queryFn: async () => {
+      const response = await api.get('/books', {
+        params: {
+          category: selectedCategory
+        }
+      })
+
+      return response.data.books ?? []
+    }
+  })
+
+  const filteredBooks = books?.filter((book) => {
+    return book.name.toLowerCase().includes(search.toLowerCase()) || book.author.toLowerCase().includes(search.toLowerCase())
   })
 
   return (
@@ -60,45 +77,9 @@ const ExplorePage: NextPageWithLayout = () => {
       </TagsContainer>
 
       <BooksGrid>
-        <BookCard
-          book={{
-            id: '1',
-            name: 'O Senhor dos Anéis',
-            cover_url: 'https://source.unsplash.com/random/108x152',
-            author: 'J.R.R. Tolkien',
-            summary: 'Nec tempor nunc in egestas. Euismod nisi eleifend at et in sagittis. Penatibus id vestibulum imperdiet a at imperdiet lectus leo. Sit porta eget nec vitae sit vulputate eget',
-            total_pages: 360,
-            avgRating: 4.5,
-            created_at: new Date(),
-          }}
-          size="lg"
-        />
-        <BookCard
-          book={{
-            id: '1',
-            name: 'O Senhor dos Anéis',
-            cover_url: 'https://source.unsplash.com/random/108x152',
-            author: 'J.R.R. Tolkien',
-            summary: 'Nec tempor nunc in egestas. Euismod nisi eleifend at et in sagittis. Penatibus id vestibulum imperdiet a at imperdiet lectus leo. Sit porta eget nec vitae sit vulputate eget',
-            total_pages: 360,
-            avgRating: 4.5,
-            created_at: new Date(),
-          }}
-          size="lg"
-        />
-        <BookCard
-          book={{
-            id: '1',
-            name: 'O Senhor dos Anéis',
-            cover_url: 'https://source.unsplash.com/random/108x152',
-            author: 'J.R.R. Tolkien',
-            summary: 'Nec tempor nunc in egestas. Euismod nisi eleifend at et in sagittis. Penatibus id vestibulum imperdiet a at imperdiet lectus leo. Sit porta eget nec vitae sit vulputate eget',
-            total_pages: 360,
-            avgRating: 4.5,
-            created_at: new Date(),
-          }}
-          size="lg"
-        />
+        {filteredBooks?.map((book) => (
+          <BookCard key={book.id} book={book} size="lg" />
+        ))}
       </BooksGrid>
     </ExploreContainer>
   )
