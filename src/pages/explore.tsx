@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Binoculars, MagnifyingGlass } from '@phosphor-icons/react'
 import { Category } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
+import { useDebounce } from '@uidotdev/usehooks'
 
 import { BooksGrid, ExploreContainer, TagsContainer } from '@/styles/pages/explore'
 import { NextPageWithLayout } from './_app'
@@ -15,6 +16,8 @@ import { api } from '@/lib/axios'
 const ExplorePage: NextPageWithLayout = () => {
   const [search, setSearch] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+
+  const debouncedSearch = useDebounce(search, 500)
 
   const { data: categories } = useQuery<Category[]>({
     queryKey: ['categories'],
@@ -38,14 +41,16 @@ const ExplorePage: NextPageWithLayout = () => {
     }
   })
 
-  const filteredBooks = books?.filter((book) => {
-    return book.name.toLowerCase().includes(search.toLowerCase()) || book.author.toLowerCase().includes(search.toLowerCase())
-  })
+  const filteredBooks = useMemo(() => {
+    return books?.filter((book) => {
+      return book.name.toLowerCase().includes(debouncedSearch.toLowerCase()) || book.author.toLowerCase().includes(debouncedSearch.toLowerCase())
+    })
+  }, [books, debouncedSearch])
 
   return (
     <ExploreContainer>
       <header>
-        <PageTitle title="Explorar" icon={<Binoculars size={32} />} />
+        <PageTitle title='Explorar' icon={<Binoculars size={32} />} />
 
         <Input
           placeholder="Buscar livro ou autor"
