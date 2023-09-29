@@ -45,13 +45,13 @@ export default async function handler(
       where: {
         ratings: {
           some: {
-            user_id: String(session.user.id),
+            user_id: String(session?.user?.id),
           }
         }
       }
     })
 
-    userBooksIds = userBooks.map((book) => book.id)
+    userBooksIds = userBooks.map((book) => book?.id)
   }
 
   const booksWithAvgRating = books.map((book) => {
@@ -61,7 +61,7 @@ export default async function handler(
       ...bookInfo,
       ratings: ratings.length,
       avgRating: bookAvgRating?._avg.rate,
-      alreadyRated: userBooksIds.includes(book.id),
+      alreadyRead: userBooksIds.includes(book.id),
     }
   })
 
