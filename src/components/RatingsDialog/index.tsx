@@ -90,7 +90,7 @@ export const RatingsDialog = ({ bookId, children }: RatingsDialogProps) => {
                 </BookInfos>
               </BookDetailsWrapper>
 
-              <BookRatings ratings={book.ratings} />
+              <BookRatings ratings={book.ratings} bookId={bookId} />
             </>
           )}
         </DialogContent>
