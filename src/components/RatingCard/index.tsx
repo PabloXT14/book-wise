@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Book, Rating, User } from '@prisma/client'
-import { BookContent, BookDetails, BookImage, Container, ToggleShowMoreButton, UserDetails } from './styles'
+import { BookContent, BookDetails, BookImage, CompactDetails, Container, ToggleShowMoreButton, UserDetails } from './styles'
 import { Avatar } from '../ui/Avatar';
 import { Heading, Text } from '../Typography';
 import { getRelativeTimeString } from '@/utils/getRelativeTimeString';
@@ -27,19 +27,21 @@ export const RatingCard = ({ rating, variant = 'default' }: RatingCardProps) => 
 
   return (
     <Container variant={variant}>
-      <UserDetails>
-        <section>
-          <Link href={`/profile/${rating.user_id}`}>
-            <Avatar src={rating.user.avatar_url!} alt={rating.user.name} />
-          </Link>
-          <div>
-            <Text>{rating.user.name}</Text>
-            <Text size="sm" color="gray-400">{distance}</Text>
-          </div>
-        </section>
+      {variant === 'default' && (
+        <UserDetails>
+          <section>
+            <Link href={`/profile/${rating.user_id}`}>
+              <Avatar src={rating.user.avatar_url!} alt={rating.user.name} />
+            </Link>
+            <div>
+              <Text>{rating.user.name}</Text>
+              <Text size="sm" color="gray-400">{distance}</Text>
+            </div>
+          </section>
 
-        <RatingStars rating={rating.rate} />
-      </UserDetails>
+          <RatingStars rating={rating.rate} />
+        </UserDetails>
+      )}
 
       <BookDetails>
         <Link href={`/explore?book=${rating.book_id}`}>
@@ -53,11 +55,19 @@ export const RatingCard = ({ rating, variant = 'default' }: RatingCardProps) => 
 
         <BookContent>
           <div>
+            {variant === 'compact' && (
+              <CompactDetails>
+                <Text size="sm" color="gray-300">{distance}</Text>
+
+                <RatingStars rating={rating.rate} />
+              </CompactDetails>
+            )}
+
             <Heading size="xs">{rating.book.name}</Heading>
             <Text size="sm" color="gray-400">{rating.book.author}</Text>
           </div>
           <Text size="sm" color="gray-300" css={{
-             marginTop: variant === 'compact' ? "auto" : "$5"
+            marginTop: variant === 'compact' ? "auto" : "$5"
           }}>
             {bookSummary}
             {rating.book.summary.length > MAX_SUMMARY_LENGTH && (
