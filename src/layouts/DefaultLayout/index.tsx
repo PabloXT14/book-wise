@@ -1,21 +1,36 @@
 import { ReactNode } from 'react'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 
 import { Container, Content } from './styles';
 import { Sidebar } from '@/components/Sidebar';
 
 interface DefaultLayoutProps {
-  children: ReactNode;
-  title: string;
+  children: ReactNode
+  title: string
+  description?: string
+  noindex?: boolean
 }
 
-export const DefaultLayout = ({ children, title }: DefaultLayoutProps) => {
+export const DefaultLayout = ({ 
+  children,
+  title,
+  description,
+  noindex = false 
+}: DefaultLayoutProps) => {
   return (
     <Container>
-      <Head>
-        <title>{`${title} | BookWise`}</title>
-        <link rel="shortcut icon" href="/favicon.svg" type="image/svg" />
-      </Head>
+      <NextSeo
+        title={`${title} | BookWise`}
+        description={description}
+        noindex={noindex}
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/favicon.svg',
+            type: 'image/svg',
+          }
+        ]}
+      />
      
       <Sidebar />
 
