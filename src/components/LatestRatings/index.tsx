@@ -28,7 +28,7 @@ export const LatestRatings = () => {
     queryFn: async () => {
       const response = await api.get('/ratings/user-latest')
 
-      return response.data.rating ?? {}
+      return response.data.rating ?? null
     },
     enabled: !!userId
   })
