@@ -16,7 +16,7 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
- 
+
 export const nunitoSans = Nunito_Sans({
   subsets: ['latin']
 })
@@ -31,19 +31,20 @@ export default function App({
 
   return (
     <QueryClientProvider client={queryClient}>
-    <SessionProvider session={session}>
-      <DefaultSeo
-        openGraph={{
-          type: 'website',
-          locale: 'pt_BR',
-          url: 'https://book-wise.vercel.app',
-          siteName: 'Book Wise',
-        }}
-      />
-      <div className={`${nunitoSans.className}`}>
-        {getLayout(<Component {...pageProps} />)}
-      </div>
-    </SessionProvider>
+      <SessionProvider session={session}>
+        <DefaultSeo
+          openGraph={{
+            type: 'website',
+            locale: 'pt_BR',
+            url: 'https://pabloxt14-book-wise.vercel.app',
+            siteName: 'Book Wise',
+          }}
+        />
+
+        <div className={`${nunitoSans.className}`}>
+          {getLayout(<Component {...pageProps} />)}
+        </div>
+      </SessionProvider>
     </QueryClientProvider>
   )
 }
