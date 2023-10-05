@@ -5,7 +5,7 @@ export const Container = styled('aside', {
   width: '232px',
   height: 'calc(100% - 40px)',
   margin: 20,
-  background: '$gray700 url(/images/sidebar-bg.svg) no-repeat center',
+  background: '$gray700 url(/images/sidebar-bg.png) no-repeat center',
   backgroundSize: 'cover',
   borderRadius: 12,
   display: 'flex',
