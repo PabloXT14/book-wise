@@ -33,7 +33,7 @@ const ProfilePage: NextPageWithLayout = () => {
     queryFn: async () => {
       const response = await api.get(`/profile/${userId}`)
 
-      return response.data.profile ?? {}
+      return response.data?.profile ?? {}
     },
     enabled: !!userId
   })

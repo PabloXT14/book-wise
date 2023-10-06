@@ -45,9 +45,7 @@ export default async function handler(
     return acc
   }, [] as string[])
 
-  const categories = profile?.ratings.flatMap((rating) => 
-    rating?.book?.categories.flatMap((category) => category?.category?.name)
-  )
+  const categories = profile?.ratings?.flatMap((rating) => rating?.book?.categories?.flatMap((category) => category?.category?.name))
 
   const mostReadCategory = categories ? getMostFrequentString(categories) : null
 

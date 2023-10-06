@@ -6,5 +6,5 @@ export const getMostFrequentString = (arr: string[]) => {
 
   return Object.keys(hashmap).reduce((a, b) => 
     hashmap[a] > hashmap[b] ? a : b
-  )
+  , '')
 }
