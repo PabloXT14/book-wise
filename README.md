@@ -233,7 +233,7 @@ As seguintes principais ferramentas foram usadas na construção do projeto:
 - **[Next-SEO](https://github.com/garmeeh/next-seo)**
 - **[@uidotdev/usehooks](https://usehooks.com/)**
 
-> Para mais detalhes das dependências gerais da aplicação veja o arquivo [package.json](https://github.com/PabloXT14/book-wise/blob/main/package.json)
+> Para mais detalhes das dependências gerais da aplicação veja o arquivo [package.json](./package.json)
 
 ---
 
